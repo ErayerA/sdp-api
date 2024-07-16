@@ -43,10 +43,13 @@ class UserTransactionController extends Controller
         $nextRenewal = $result['success'] ? Carbon::now()->addMonth()->format('Y-m-d') : $subscription->renewal_at;
 
         // In case transaction made with success...
-        if ($result['success'] && $createdTransaction = $subscription->transactions()->create($toFill)) {
-            $result['transaction_id'] = $createdTransaction->id;
-            $subscription->renewal_at = $nextRenewal;
-            $subscription->save();
+        if ($result['success']){
+            $toFill['payment_provider'] = $result['payment_provider'];
+            if($createdTransaction = $subscription->transactions()->create($toFill)){
+                $result['transaction_id'] = $createdTransaction->id;
+                $subscription->renewal_at = $nextRenewal;
+                $subscription->save();
+            }
         }
 
         // Unsuccessful transaction can be watched by reading 'transaction' node of the returned json.

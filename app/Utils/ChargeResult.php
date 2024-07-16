@@ -29,7 +29,7 @@ class ChargeResult
             'success' => $this->success,
             'subscription' => $this->subscription->toArray(),
             'price' => $this->price,
-            'paymentProvider' => $this->paymentProvider,
+            'payment_provider' => $this->paymentProvider,
             'exception' => $this->exception,
         ];
     }

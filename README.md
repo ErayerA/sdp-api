@@ -1,20 +1,9 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Laravel Docker Starter Kit
-- Laravel v11.x
-- PHP v8.3.x
-- MySQL v8.1.x (default)
-- MariaDB v10.11.x
-- PostgreSQL v16.x
-- pgAdmin v4.x
-- phpMyAdmin v5.x
-- Mailpit v1.x
-- Node.js v18.x
-- NPM v10.x
-- Yarn v1.x
-- Vite v5.x
-- Rector v1.x
-- Redis v7.2.x
+# Mukellef Backend Challenge Case Study
+## Developer Notes
+- .env file tracked/pushed intentionally
+- Developed on Windows 11 - WSL2 - Ubuntu Subsystem
 
 # Requirements
 - Stable version of [Docker](https://docs.docker.com/engine/install/)
@@ -23,8 +12,8 @@
 # How To Deploy
 
 ### For first time only !
-- `git clone https://github.com/refactorian/laravel-docker.git`
-- `cd laravel-docker`
+- `git clone https://github.com/ErayerA/sdp-api.git`
+- `cd sdp-api`
 - `docker compose up -d --build`
 - `docker compose exec phpmyadmin chmod 777 /sessions`
 - `docker compose exec php bash`
@@ -35,11 +24,33 @@
 ### From the second time onwards
 - `docker compose up -d`
 
+# IMPORTANT:
+
+### Don't forget to run artisan, composer, etc. commands in php container. Jump there by:
+- `docker compose exec php bash`
+
+### Don't forget to run queue
+- `php artisan queue:listen`
+
+### Fix ownership & permissions of files created by artisan:
+- `sh owners.sh`
+
+## Postman Instructions
+1. Fill `client_secret` envrionment variable with the same field's value of the only existing row in `oauth_clients` db table
+2. Run `GetAccessToken` request first and let the token to be saved to environment.
+
 # Notes
 
-### Laravel Versions
-- [Laravel 11.x](https://github.com/refactorian/laravel-docker/tree/main)
-- [Laravel 10.x](https://github.com/refactorian/laravel-docker/tree/laravel_10x)
+
+### Anytime for a fresh start
+- `php artisan migrate:fresh --seed`
+
+
+### Postman Collection
+- `<project_root>/SDP.postman_collection.json`
+
+### Postman Rough API Docs
+- [Published Docs](https://documenter.getpostman.com/view/36980497/2sA3kRH3EY#9e051e9d-3c87-4a66-bf8f-d6e2f2568e56)
 
 ### Laravel App
 - URL: http://localhost
@@ -50,70 +61,8 @@
 ### phpMyAdmin
 - URL: http://localhost:8080
 - Server: `db`
-- Username: `refactorian`
-- Password: `refactorian`
-- Database: `refactorian`
+- Username: `mukellef`
+- Password: `mukellef`
+- Database: `main`
 
-### Adminer
-- URL: http://localhost:9090
-- Server: `db`
-- Username: `refactorian`
-- Password: `refactorian`
-- Database: `refactorian`
 
-### Basic docker compose commands
-- Build or rebuild services
-    - `docker compose build`
-- Create and start containers
-    - `docker compose up -d`
-- Stop and remove containers, networks
-    - `docker compose down`
-- Stop all services
-    - `docker compose stop`
-- Restart service containers
-    - `docker compose restart`
-- Run a command inside a container
-    - `docker compose exec [container] [command]`
-
-### Useful Laravel Commands
-- Display basic information about your application
-    - `php artisan about`
-- Remove the configuration cache file
-    - `php artisan config:clear`
-- Flush the application cache
-    - `php artisan cache:clear`
-- Clear all cached events and listeners
-    - `php artisan event:clear`
-- Delete all of the jobs from the specified queue
-    - `php artisan queue:clear`
-- Remove the route cache file
-    - `php artisan route:clear`
-- Clear all compiled view files
-    - `php artisan view:clear`
-- Remove the compiled class file
-    - `php artisan clear-compiled`
-- Remove the cached bootstrap files
-    - `php artisan optimize:clear`
-- Delete the cached mutex files created by scheduler
-    - `php artisan schedule:clear-cache`
-- Flush expired password reset tokens
-    - `php artisan auth:clear-resets`
-
-### Laravel Pint (Code Style Fixer | PHP-CS-Fixer)
-- Format all files
-    - `vendor/bin/pint`
-- Format specific files or directories
-    - `vendor/bin/pint app/Models`
-    - `vendor/bin/pint app/Models/User.php`
-- Format all files with preview
-    - `vendor/bin/pint -v`
-- Format uncommitted changes according to Git
-    - `vendor/bin/pint --dirty`
-- Inspect all files
-  - `vendor/bin/pint --test`
-
-### Rector
-- Dry Run
-    - `vendor/bin/rector process --dry-run`
-- Process
-    - `vendor/bin/rector process`

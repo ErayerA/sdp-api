@@ -38,9 +38,9 @@ services:
             - .docker/db/sql:/docker-entrypoint-initdb.d
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: refactorian
-            MYSQL_USER: refactorian
-            MYSQL_PASSWORD: refactorian
+            MYSQL_DATABASE: main
+            MYSQL_USER: mukellef
+            MYSQL_PASSWORD: mukellef
 
     ####################################################################################################
     # phpMyAdmin
@@ -61,21 +61,29 @@ services:
     ####################################################################################################
     # Adminer
     ####################################################################################################
-    adminer:
-        image: adminer
-        ports:
-            - 9090:8080
-        depends_on:
-        - db
+    # adminer:
+    #     image: adminer
+    #     ports:
+    #         - 9090:8080
+    #     depends_on:
+    #     - db
 
     ####################################################################################################
     # Mailpit
     ####################################################################################################
     mail:
         image: axllent/mailpit:latest
+        restart: unless-stopped
         ports:
         - 8025:8025
         - 1025:1025
+        environment:
+            MP_MAX_MESSAGES: 5000
+            MP_DATABASE: /data/mailpit.db
+            MP_SMTP_AUTH_ACCEPT_ANY: 1
+            MP_SMTP_AUTH_ALLOW_INSECURE: 1
+        volumes:
+            - .docker/mailpit/data:/data
 
     ####################################################################################################
     # Redis

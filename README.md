@@ -45,6 +45,9 @@
 ### Anytime for a fresh start
 - `php artisan migrate:fresh --seed`
 
+### Command for renewing subscriptions
+- `php artisan app:renew-subscriptions`
+
 
 ### Postman Collection
 - `<project_root>/SDP.postman_collection.json`
